@@ -4,14 +4,20 @@ import graphics
 from game_data import data
 
 # function to get random persons data
+
+
 def get_random_person():
     return random.choice(data)
 
 # Function to clear the console
+
+
 def clear():
-    os.system("clear")
+    os.system("cls")
     
 # Function to compare the followers of person A and B.
+
+
 def compare_followers(A,B):
     # print(A,B)
     if A > B:
@@ -48,7 +54,9 @@ def play():
             is_game_over = True
             print(f"Sorry, that's wrong, Final Score: {score}")
 
-# initalizing the function              
+# initializing the function
+
+
 play()
 
 while input('Do you want to play again?(Y/N): ').lower() == 'y':
