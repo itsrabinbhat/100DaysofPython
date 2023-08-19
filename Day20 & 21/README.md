@@ -1,4 +1,4 @@
-# Day 20 - Creating a Snake Game
+# Day 20 and 21 - Creating a Snake Game
 
 ## Steps involved:
 

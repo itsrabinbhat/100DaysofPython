@@ -25,6 +25,13 @@ class Snake:
         new_segment_pos = self.segments[-1].position()
         self.add_segments(new_segment_pos)
 
+    def reset(self):
+        for seg in self.segments:
+            seg.reset()
+        self.segments.clear()
+        self.create_snake()
+        self.snake_head = self.segments[0]
+
     # Moving the snake around the screen
     def move(self):
         for i in range(len(self.segments) - 1, 0, -1):
