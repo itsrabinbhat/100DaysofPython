@@ -30,4 +30,6 @@ for song in playlist:
         print(f"{song} doesn't exist on spotify, Skipped!")
 
 
-
+# Creating playlist on the spotify
+new_playlist = sp.user_playlist_create(user_id, name=f'{user_input}-Billboard Top 100', public=False)
+sp.playlist_add_items(new_playlist['id'], song_uris)
