@@ -19,4 +19,15 @@ songs_data = BeautifulSoup(res.text, 'html.parser')
 playlist = songs_data.select('div ul li ul li h3')
 playlist = [song.getText().strip() for song in playlist]
 
+# Searching spotify and generating a song_uris
+song_uris = []
+for song in playlist:
+    result = sp.search(q=f'track:{song} year:{user_input.split("-")[0]}')
+    try:
+        song_uri = result['tracks']['items'][0]['uri']
+        song_uris.append(song_uri)
+    except IndexError:
+        print(f"{song} doesn't exist on spotify, Skipped!")
+
+
 
