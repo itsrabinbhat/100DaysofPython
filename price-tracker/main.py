@@ -1,3 +1,5 @@
+import smtplib
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -20,4 +22,26 @@ price_whole = soup.find('span', class_='a-price-whole').getText()
 price_decimal = soup.find('span', class_='a-price-fraction').getText()
 price = float(price_whole + price_decimal)
 
+BUY_PRICE = 200
 
+# Sending price alerts through gmail
+if price < BUY_PRICE:
+    smtp_addr = 'smtp.gmail.com'
+    password = "qfcg ibyc elio exqz"
+    username = "meoz.test@gmail.com"
+    from_addr = 'meoz.test@gmail.com'
+    to_addr = 'itsrabio7@gmail.com'
+    title = soup.find(id="productTitle").get_text().strip()
+    sub = 'Amazon Price Alert!'
+    msg = f"{title} is now {price}"
+
+    with smtplib.SMTP(smtp_addr, port=587) as connection:
+        connection.starttls()
+        res = connection.login(username, password)
+        print(res)
+        connection.sendmail(
+            from_addr,
+            to_addr,
+            msg=f"Subject: {sub}\n\n{msg}\n{product_url}".encode('utf-8')
+        )
+        
