@@ -2,6 +2,7 @@ import smtplib
 import os
 import requests
 from bs4 import BeautifulSoup
+import dotenv
 
 product_url = ("https://www.amazon.ca/HyperX-Cloud-III-Ultra-Clear-USB/dp/B0C3BSZ56D/ref=pd_ci_mcx_pspc_dp_d_2_t_1"
                "?pd_rd_w=RLb2Z&content-id=amzn1.sym.cc9b306e-f54a-42a9-af24-d836ac9ed640&pf_rd_p=cc9b306e-f54a-42a9"
@@ -26,7 +27,7 @@ BUY_PRICE = 200
 
 # Sending price alerts through gmail
 if price < BUY_PRICE:
-    os.environ['PASSWORD'] = "qfcg ibyc elio exqz"
+    dotenv.load_dotenv()
     smtp_addr = 'smtp.gmail.com'
     username = "meoz.test@gmail.com"
     from_addr = 'meoz.test@gmail.com'
@@ -37,7 +38,7 @@ if price < BUY_PRICE:
 
     with smtplib.SMTP(smtp_addr, port=587) as connection:
         connection.starttls()
-        res = connection.login(username, os.environ['PASSWORD'])
+        res = connection.login(username, os.getenv('PASSWORD'))
         connection.sendmail(
             from_addr,
             to_addr,
