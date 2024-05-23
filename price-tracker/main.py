@@ -1,5 +1,5 @@
 import smtplib
-
+import os
 import requests
 from bs4 import BeautifulSoup
 
@@ -26,8 +26,8 @@ BUY_PRICE = 200
 
 # Sending price alerts through gmail
 if price < BUY_PRICE:
+    os.environ['PASSWORD'] = "qfcg ibyc elio exqz"
     smtp_addr = 'smtp.gmail.com'
-    password = "qfcg ibyc elio exqz"
     username = "meoz.test@gmail.com"
     from_addr = 'meoz.test@gmail.com'
     to_addr = 'itsrabio7@gmail.com'
@@ -37,11 +37,9 @@ if price < BUY_PRICE:
 
     with smtplib.SMTP(smtp_addr, port=587) as connection:
         connection.starttls()
-        res = connection.login(username, password)
-        print(res)
+        res = connection.login(username, os.environ['PASSWORD'])
         connection.sendmail(
             from_addr,
             to_addr,
             msg=f"Subject: {sub}\n\n{msg}\n{product_url}".encode('utf-8')
         )
-        
