@@ -16,11 +16,15 @@ cookie = driver.find_element(By.ID, value='cookie')
 # Some functions
 def purchase_items():
     money = driver.find_element(By.ID, value='money')
-    available_items = driver.find_elements(By.CSS_SELECTOR, value='#store div b')
-    available_items = [item.text for item in available_items]
+    available_items_obj = driver.find_elements(By.CSS_SELECTOR, value='#store div b')
+    available_items = [item.text for item in available_items_obj]
     available_items.pop()
-    print(available_items)
-    print(money.text)
+    available_items = [int(item.split(' - ')[1].replace(',', '')) for item in available_items]
+
+    # checking which item can be bought
+    # checking from most expensive item since we want to buy expensive one first if possible
+    for item in reversed(available_items):
+        print(item)
 
 
 # main loop and setting 5sec delay for purchasing the items
@@ -33,4 +37,3 @@ while True:
     if current_time - start_time >= 5:
         purchase_items()
         start_time = current_time
-
