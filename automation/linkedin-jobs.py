@@ -3,8 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-username = 'itsrabio7@gmail.com'
-passwd = '@L1nk3d1no7'
+username = 'your@email.com'
+passwd = 'yourPassword'
 
 # creating a chrome driver
 chrome_options = webdriver.ChromeOptions()
@@ -15,11 +15,11 @@ driver = webdriver.Chrome(options=chrome_options)
 url = 'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin'
 driver.get(url)
 
+
 # logging into LinkedIn
 email_field = driver.find_element(By.XPATH, value='//*[@id="username"]')
 passwd_field = driver.find_element(By.XPATH, value='//*[@id="password"]')
 email_field.send_keys(username)
-time.sleep(1)
 passwd_field.send_keys(passwd, Keys.ENTER)
 
 # Navigating to jobs tab and searching jobs
@@ -35,5 +35,19 @@ job_location_field = driver.find_element(By.XPATH, value='//*[contains(@id, "job
 job_title = input("Enter title, skill or company: ")
 job_location = input("Enter city, state or zip code: ")
 
+
 job_title_field.send_keys(job_title)
 job_location_field.send_keys(job_location, Keys.ENTER)
+
+
+# extracting data from first 10 jobs from the search
+time.sleep(2)
+job_list = driver.find_elements(By.CSS_SELECTOR, value='.jobs-search-results-list ul li')
+
+# job_title = driver.find_element(By.XPATH, value='//*[@id="main"]/div/div[2]/div[2]/div/div[2]/div/div['
+#                                                 '1]/div/div[1]/div/div[1]/div[1]/div[1]/div/h1')
+# print(job_title.text)
+print(job_list)
+
+
+driver.close()
