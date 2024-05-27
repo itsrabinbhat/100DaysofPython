@@ -49,5 +49,7 @@ job_list = driver.find_elements(By.CSS_SELECTOR, value='.jobs-search-results-lis
 # print(job_title.text)
 print(job_list)
 
+# Kept getting StaleElementReferenceException error when trying to go through each job in the job_list and couldn't
+# figure out why🫤
 
 driver.close()
