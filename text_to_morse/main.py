@@ -21,3 +21,15 @@ def encode_text(msg):
     return encoded_text
 
 
+# Decoding function
+def decode_morse(morse_code):
+    decoded_text = ''
+    code_list = morse_code.split(' ')
+    for code in code_list:
+        for char, morse_code in morse_dict.items():
+            if code == morse_code:
+                decoded_text += char
+
+    return decoded_text
+
+
