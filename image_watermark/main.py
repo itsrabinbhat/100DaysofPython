@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk, ImageFont, ImageDraw
@@ -59,6 +60,32 @@ def add_watermark():
         # clear text entry
         text.delete(0, 'end')
 
+        global watermarked_img
+        watermarked_img = img.copy()
+
+
+# Function to save the watermarked image
+def save_image():
+    if watermarked_img:
+        try:
+            # Get the directory where the script is located
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+
+            # Create a directory for watermarked images if it doesn't exist
+            save_dir = os.path.join(script_dir, "watermarked_imgs")
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+
+            # Prompt user to select a file name and location for saving the image
+            file_path = filedialog.asksaveasfilename(initialdir=save_dir, filetypes=[("PNG files", "*.png")])
+
+            # Save the image if a file path is selected
+            if file_path:
+                watermarked_img.save(file_path, format="PNG")
+                print(f"Image saved to: {file_path}")
+        except Exception as e:
+            print(f"Error saving image: {e}")
+
 
 # Create main app window
 app = tk.Tk()
@@ -66,6 +93,19 @@ app.title("Image watermark")
 
 # resizing the window
 app.geometry('1000x800')
+
+# create a upload button
+upload_btn = tk.Button(app, text='Upload Image', command=upload_img, font=16)
+upload_btn.pack(pady=10)
+
+# create a label to display image
+img_label = tk.Label(app)
+img_label.pack(pady=10)
+
+# Create a button to save the watermarked image
+save_button = tk.Button(app, text="Save Image", command=save_image)
+save_button.pack(pady=10)
+
 
 # create a label and text input field
 text_label = tk.Label(app, text='Enter watermark text: ', font=16)
@@ -77,12 +117,7 @@ text.pack(pady=10)
 watermark_btn = tk.Button(app, text='Add watermark', command=add_watermark, font=16)
 watermark_btn.pack()
 
-# create a label to display image
-img_label = tk.Label(app)
-img_label.pack(pady=10)
 
-# create a upload button
-upload_btn = tk.Button(app, text='Upload Image', command=upload_img, font=16)
-upload_btn.pack(pady=10)
+
 
 app.mainloop()
